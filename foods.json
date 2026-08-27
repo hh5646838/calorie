@@ -225,7 +225,7 @@
   },
   {
     "id": "oats",
-    "name": "燕麦",
+    "name": "燕麦（干）",
     "emoji": "🌾",
     "kcal": 377,
     "unit": "100g",
@@ -233,7 +233,7 @@
   },
   {
     "id": "brownrice",
-    "name": "糙米",
+    "name": "糙米（干）",
     "emoji": "🍚",
     "kcal": 348,
     "unit": "100g",
@@ -241,7 +241,7 @@
   },
   {
     "id": "buckwheatnoodle",
-    "name": "荞麦面",
+    "name": "荞麦面（干）",
     "emoji": "🍜",
     "kcal": 324,
     "unit": "100g",
@@ -249,7 +249,7 @@
   },
   {
     "id": "redbean",
-    "name": "红豆",
+    "name": "红豆（干）",
     "emoji": "🫘",
     "kcal": 324,
     "unit": "100g",
@@ -257,7 +257,7 @@
   },
   {
     "id": "mungbean",
-    "name": "绿豆",
+    "name": "绿豆（干）",
     "emoji": "🫘",
     "kcal": 316,
     "unit": "100g",
