@@ -89,10 +89,10 @@
         <h2 class="step-title"><span class="step-num">3</span> 🍽️ 挑选食物</h2>
         <div class="filter-group">
           <button class="filter-btn active" data-filter="all">全部</button>
-          <button class="filter-btn" data-filter="low">🟢 低卡</button>
-          <button class="filter-btn" data-filter="mid">🟡 中卡</button>
-          <button class="filter-btn" data-filter="high">🟠 高卡</button>
-          <button class="filter-btn" data-filter="ultra">🔴 超高卡</button>
+          <button class="filter-btn" data-filter="low">🟢 低热量</button>
+          <button class="filter-btn" data-filter="mid">🟡 中热量</button>
+          <button class="filter-btn" data-filter="high">🟠 高热量</button>
+          <button class="filter-btn" data-filter="ultra">🔴 超高热量</button>
         </div>
         <div class="food-grid" id="foodGrid">
           <!-- 动态渲染 -->
@@ -208,15 +208,8 @@
   <div class="modal-overlay" id="helpModal">
     <div class="modal-box help-modal">
       <button class="modal-close" id="helpClose" title="关闭">×</button>
-      <h3 class="help-title">📖 使用帮助</h3>
-      <div class="help-content">
-        <p><strong>① 设置目标热量</strong>：输入今日计划总热量（默认 2000 kcal）。</p>
-        <p><strong>② 挑选食物</strong>：在食物库点击 ➕ 添加，输入数量（g/ml/份/杯）。</p>
-        <p><strong>③ 三餐归类</strong>：点击已选食物的 🌅☀️🌙 按钮分配到早/午/晚餐。</p>
-        <p><strong>④ 选择风格</strong>：在卡片上方下拉菜单切换 8 种精美主题。</p>
-        <p><strong>⑤ 下载图片</strong>：点击「📥 下载高清图」保存为 PNG。</p>
-        <p class="help-tip">💡 提示：热量超标时会自动拦截，前 6 次下载免费，之后每 3 次弹出支持提示。</p>
-      </div>
+      <h3 class="help-title" id="helpTitle">📖 使用帮助</h3>
+      <div class="help-content" id="helpContent"></div>
     </div>
   </div>
 

@@ -84,6 +84,21 @@
       $('modalQrcode').src = state.config.qrcode;
       $('catQrcode').src = state.config.qrcode;
     }
+
+    // 渲染帮助文档（从 config 读取）
+    if (state.config.helpTitle) {
+      $('helpTitle').textContent = state.config.helpTitle;
+    }
+    if (Array.isArray(state.config.helpContent) && state.config.helpContent.length) {
+      let html = '';
+      state.config.helpContent.forEach((item) => {
+        html += `<p><strong>${item.step || ''}</strong>${item.text ? '：' + item.text : ''}</p>`;
+      });
+      if (state.config.helpTip) {
+        html += `<p class="help-tip">${state.config.helpTip}</p>`;
+      }
+      $('helpContent').innerHTML = html;
+    }
   }
 
   // ---------- 加载食物库 ----------
