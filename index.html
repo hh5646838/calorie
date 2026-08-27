@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>加载中...</title>
+  <link rel="stylesheet" href="style.css?v=18">
+</head>
+<body>
+
+  <!-- ========== 顶部导航栏 ========== -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <img id="navAvatar" src="" alt="avatar" class="nav-avatar">
+      <span id="navAuthor" class="nav-author">赛博干饭人</span>
+    </div>
+    <div class="nav-actions">
+      <a id="navHomepage" href="#" target="_blank" rel="noopener" class="nav-link">🏠 主页</a>
+      <button id="followBtn" class="follow-btn">➕ 关注我</button>
+    </div>
+  </nav>
+
+  <!-- ========== 主容器 ========== -->
+  <main class="main-container">
+
+    <!-- ===== 左侧控制区 ===== -->
+    <section class="control-panel">
+
+      <!-- 第一步：目标热量 -->
+      <div class="step-card">
+        <h2 class="step-title"><span class="step-num">1</span> 🎯 今日计划总热量</h2>
+        <div class="target-stats">
+          <div class="target-stat-item">
+            <span class="target-stat-label">🍽️ 已选</span>
+            <span class="target-stat-value" id="targetSelectedVal">0</span>
+            <span class="target-stat-unit">kcal</span>
+          </div>
+          <div class="target-stat-divider"></div>
+          <div class="target-stat-item target-stat-center">
+            <span class="target-stat-label">🎯 目标</span>
+            <input type="number" id="targetCalories" class="target-stat-input" placeholder="--" min="100" step="100" value="2000">
+            <span class="target-stat-unit">kcal</span>
+          </div>
+          <div class="target-stat-divider"></div>
+          <div class="target-stat-item">
+            <span class="target-stat-label">📊 达成</span>
+            <span class="target-stat-value" id="targetPercentVal">0</span>
+            <span class="target-stat-unit">%</span>
+          </div>
+        </div>
+        <div class="calorie-suggest">
+          <span class="suggest-tag low">🔴 减脂 1200-1500</span>
+          <span class="suggest-tag mid">🟡 维持 1500-2000</span>
+          <span class="suggest-tag high">🟢 增肌 2000-2800</span>
+        </div>
+        <p id="targetHint" class="hint-text">⚠ 请修改目标热量后开始挑选食物</p>
+      </div>
+
+      <!-- 第二步：基础设置 -->
+      <div class="step-card">
+        <h2 class="step-title"><span class="step-num">2</span> ⚙️ 基础设置</h2>
+
+        <div class="setting-block">
+          <label class="setting-label">📅 日期 <span class="label-sub">（可输入或点日历选择）</span></label>
+          <div class="date-input-wrapper">
+            <input type="text" id="dateInput" class="date-input" placeholder="YYYY-MM-DD" maxlength="10">
+            <button type="button" id="datePickerBtn" class="date-picker-btn" title="选择日期">📅</button>
+          </div>
+          <input type="date" id="datePickerHidden" style="display:none;">
+          <p id="dateHint" class="hint-text date-hint" style="display:none;">⚠ 日期格式错误，请使用 YYYY-MM-DD 格式（如 2026-08-26）</p>
+        </div>
+
+        <div class="setting-block">
+          <label class="setting-label">🏷️ 今日饮食状态</label>
+          <select id="statusTag" class="status-select">
+            <option value="🥗 完美轻断食">🥗 完美轻断食</option>
+            <option value="🍗 疯狂碳水夜">🍗 疯狂碳水夜</option>
+            <option value="😭 爆卡警告">😭 爆卡警告</option>
+            <option value="🧘 平稳维持期">🧘 平稳维持期</option>
+            <option value="💪 增肌高蛋白">💪 增肌高蛋白</option>
+            <option value="🍃 清爽素食日">🍃 清爽素食日</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 第三步：食物筛选与添加 -->
+      <div class="step-card" id="foodStepCard">
+        <h2 class="step-title"><span class="step-num">3</span> 🍽️ 挑选食物</h2>
+        <div class="filter-group">
+          <button class="filter-btn active" data-filter="all">全部</button>
+          <button class="filter-btn" data-filter="low">🟢 低卡</button>
+          <button class="filter-btn" data-filter="mid">🟡 中卡</button>
+          <button class="filter-btn" data-filter="high">🟠 高卡</button>
+          <button class="filter-btn" data-filter="ultra">🔴 超高卡</button>
+        </div>
+        <div class="food-grid" id="foodGrid">
+          <!-- 动态渲染 -->
+        </div>
+        <div class="food-mask" id="foodMask">
+          <p>🔒 请先完成第一步设置目标热量</p>
+        </div>
+      </div>
+
+      <!-- 第四步：已选食物与三餐分配 -->
+      <div class="step-card">
+        <h2 class="step-title"><span class="step-num">4</span> 📋 已选食物与三餐分配</h2>
+        <div class="selected-foods" id="selectedFoods">
+          <p class="empty-hint">🍽️ 还没有选择食物，去上方添加吧</p>
+        </div>
+
+        <div class="meal-areas">
+          <div class="meal-area" data-meal="breakfast">
+            <h3 class="meal-title">🌅 早餐</h3>
+            <div class="meal-list" id="mealBreakfast"></div>
+          </div>
+          <div class="meal-area" data-meal="lunch">
+            <h3 class="meal-title">☀️ 午餐</h3>
+            <div class="meal-list" id="mealLunch"></div>
+          </div>
+          <div class="meal-area" data-meal="dinner">
+            <h3 class="meal-title">🌙 晚餐</h3>
+            <div class="meal-list" id="mealDinner"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 右侧预览区 ===== -->
+    <section class="preview-panel">
+      <!-- 顶部控制栏：风格下拉 + 下载按钮 -->
+      <div class="preview-top-bar">
+        <select id="themeSelect" class="theme-select">
+          <option value="cream">✨ ins 奶油风</option>
+          <option value="cyber">🔥 赛博科技风</option>
+          <option value="cute">🎀 可爱风</option>
+          <option value="romantic">🌹 浪漫风</option>
+          <option value="comic">💥 漫画风</option>
+          <option value="ancient">🏮 古风</option>
+          <option value="venice">🚤 威尼斯风</option>
+          <option value="paris">🎨 插画风</option>
+        </select>
+        <button class="download-btn" id="downloadBtn">📥 下载高清图</button>
+      </div>
+
+      <!-- 预览卡片（下载目标） -->
+      <div class="card-viewport">
+        <div class="preview-card theme-cream" id="previewCard">
+          <div class="card-header">
+            <h1 class="card-title">🍽️ 今日饮食复盘</h1>
+            <p class="card-subtitle">
+              <span id="cardDate">--</span>
+              <span class="card-dot">·</span>
+              <span id="cardStatus">🥗 完美轻断食</span>
+            </p>
+          </div>
+
+          <div class="card-stats-row">
+            <div class="card-stat">
+              <span class="card-stat-num" id="cardTargetNum">--</span>
+              <span class="card-stat-label">目标 kcal</span>
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-stat">
+              <span class="card-stat-num" id="cardSelectedNum">0</span>
+              <span class="card-stat-label">已选 kcal</span>
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-stat">
+              <span class="card-stat-num" id="cardPercentNum">0%</span>
+              <span class="card-stat-label">达成率</span>
+            </div>
+          </div>
+
+          <div class="card-progress">
+            <div class="card-progress-fill" id="cardProgressFill"></div>
+          </div>
+
+          <div class="card-foods" id="cardFoods">
+            <p class="card-empty">🍽️ 还没有添加食物</p>
+          </div>
+
+          <div class="card-footer">
+            <span class="card-author" id="cardAuthor">JoJo的AI工具箱</span>
+          </div>
+
+          <div class="card-timestamp" id="cardTimestamp">00:00:00</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== 关注我弹窗 ========== -->
+  <div class="modal-overlay" id="followModal">
+    <div class="modal-box follow-modal">
+      <button class="modal-close" id="followClose" title="关闭">×</button>
+      <img id="modalAvatar" src="" alt="avatar" class="modal-avatar">
+      <h2 class="modal-title">👋 关注我不迷路</h2>
+      <p class="modal-author" id="modalAuthor">赛博干饭人</p>
+      <p class="modal-wechat-row">公众号：<span id="modalWechat">cyber_foodie</span></p>
+      <img id="modalQrcode" src="" alt="qrcode" class="modal-qrcode">
+      <p class="modal-tip">📱 扫码关注，获取更多健康饮食干货</p>
+    </div>
+  </div>
+
+  <!-- ========== 超标警告弹窗 ========== -->
+  <div class="modal-overlay" id="warnModal">
+    <div class="modal-box warn-modal">
+      <div class="warn-emoji">⚠️</div>
+      <h3 class="warn-title">已超过计划总热量，不能再选了！</h3>
+      <p class="warn-detail">当前已选 <strong id="warnCurrent">0</strong> kcal / 目标 <strong id="warnTarget">0</strong> kcal</p>
+      <button class="warn-ok" id="warnOk">我知道了</button>
+    </div>
+  </div>
+
+  <!-- ========== 猫咪变现弹窗 ========== -->
+  <div class="modal-overlay" id="catModal">
+    <div class="modal-box cat-modal">
+      <div class="cat-emoji">🐱 🥺</div>
+      <p class="cat-text">感谢使用！阅读广告是网站维持的根本，微信扫描下方二维码阅读并点击文末的广告支持我们吧！当然,你也可以选择残忍关掉弹窗继续免费使用。</p>
+      <img id="catQrcode" src="" alt="qrcode" class="modal-qrcode">
+      <button class="cat-close-btn" id="catCloseBtn" disabled>残忍关掉 (5s)</button>
+    </div>
+  </div>
+
+  <!-- ========== 数量输入弹窗 ========== -->
+  <div class="modal-overlay" id="amountModal">
+    <div class="modal-box amount-modal">
+      <h3 class="amount-title" id="amountFoodName">添加食物</h3>
+      <p class="amount-kcal" id="amountFoodKcal">单位热量：-- kcal</p>
+      <div class="amount-input-row">
+        <input type="number" id="amountInput" placeholder="数量" min="1" step="50" value="100">
+        <span class="amount-unit" id="amountUnit">g</span>
+      </div>
+      <p class="amount-total-row">该食物总热量：<strong id="amountTotal">0</strong> kcal</p>
+      <div class="amount-actions">
+        <button class="btn-ghost" id="amountCancel">取消</button>
+        <button class="btn-primary" id="amountConfirm">确认添加</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
