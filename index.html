@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>加载中...</title>
-  <link rel="stylesheet" href="style.css?v=18">
+  <link rel="stylesheet" href="style.css?v=19">
 </head>
 <body>
 
@@ -16,6 +16,7 @@
     </div>
     <div class="nav-actions">
       <a id="navHomepage" href="#" target="_blank" rel="noopener" class="nav-link">🏠 主页</a>
+      <button id="helpBtn" class="help-btn">❓ 帮助</button>
       <button id="followBtn" class="follow-btn">➕ 关注我</button>
     </div>
   </nav>
@@ -188,6 +189,36 @@
       </div>
     </section>
   </main>
+
+  <!-- ========== 免责声明弹窗（每次打开自动弹出） ========== -->
+  <div class="modal-overlay" id="disclaimerModal">
+    <div class="modal-box disclaimer-modal">
+      <div class="disclaimer-icon">⚕️</div>
+      <h3 class="disclaimer-title">免责声明</h3>
+      <p class="disclaimer-text">本站仅提供饮食热量统计功能，所有数据仅供参考，<strong>不构成任何医疗、健康或营养建议</strong>。如有健康问题，请咨询专业医生或营养师。</p>
+      <label class="disclaimer-check">
+        <input type="checkbox" id="disclaimerCheck">
+        <span>我已阅读并知晓上述声明</span>
+      </label>
+      <button class="disclaimer-btn" id="disclaimerBtn" disabled>我已知晓，继续使用</button>
+    </div>
+  </div>
+
+  <!-- ========== 帮助弹窗 ========== -->
+  <div class="modal-overlay" id="helpModal">
+    <div class="modal-box help-modal">
+      <button class="modal-close" id="helpClose" title="关闭">×</button>
+      <h3 class="help-title">📖 使用帮助</h3>
+      <div class="help-content">
+        <p><strong>① 设置目标热量</strong>：输入今日计划总热量（默认 2000 kcal）。</p>
+        <p><strong>② 挑选食物</strong>：在食物库点击 ➕ 添加，输入数量（g/ml/份/杯）。</p>
+        <p><strong>③ 三餐归类</strong>：点击已选食物的 🌅☀️🌙 按钮分配到早/午/晚餐。</p>
+        <p><strong>④ 选择风格</strong>：在卡片上方下拉菜单切换 8 种精美主题。</p>
+        <p><strong>⑤ 下载图片</strong>：点击「📥 下载高清图」保存为 PNG。</p>
+        <p class="help-tip">💡 提示：热量超标时会自动拦截，前 6 次下载免费，之后每 3 次弹出支持提示。</p>
+      </div>
+    </div>
+  </div>
 
   <!-- ========== 关注我弹窗 ========== -->
   <div class="modal-overlay" id="followModal">

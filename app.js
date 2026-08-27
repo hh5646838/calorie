@@ -52,6 +52,9 @@
     updatePreview();
     startTimestamp();
     updateFoodMask();
+
+    // 每次打开网站自动弹出免责声明
+    showModal('disclaimerModal');
   }
 
   // ---------- 加载配置 ----------
@@ -207,6 +210,16 @@
 
     // 猫咪弹窗关闭
     $('catCloseBtn').addEventListener('click', () => hideModal('catModal'));
+
+    // 帮助弹窗
+    $('helpBtn').addEventListener('click', () => showModal('helpModal'));
+    $('helpClose').addEventListener('click', () => hideModal('helpModal'));
+
+    // 免责声明弹窗：勾选后启用按钮
+    $('disclaimerCheck').addEventListener('change', (e) => {
+      $('disclaimerBtn').disabled = !e.target.checked;
+    });
+    $('disclaimerBtn').addEventListener('click', () => hideModal('disclaimerModal'));
 
   }
 

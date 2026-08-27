@@ -158,6 +158,18 @@ input, select { font-family: inherit; font-size: inherit; }
 }
 .follow-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(255,143,163,.4); }
 
+.help-btn {
+  background: var(--card-bg-soft);
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: .9rem;
+  border: 1px solid var(--border);
+  transition: background var(--transition), color var(--transition);
+}
+.help-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
 body.theme-cyber .follow-btn {
   background: transparent;
   border: 1px solid var(--primary);
@@ -1351,6 +1363,66 @@ body.theme-cyber .download-btn {
   cursor: pointer;
 }
 .cat-close-btn:not(:disabled):hover { opacity: .9; }
+
+/* 免责声明弹窗 */
+.disclaimer-modal { text-align: center; max-width: 420px; }
+.disclaimer-icon { font-size: 3rem; margin-bottom: 10px; }
+.disclaimer-title { font-size: 1.3rem; margin-bottom: 14px; color: var(--text); }
+.disclaimer-text {
+  font-size: .9rem;
+  line-height: 1.8;
+  color: var(--text-light);
+  margin-bottom: 20px;
+  text-align: left;
+  padding: 0 8px;
+}
+.disclaimer-text strong { color: var(--primary); }
+.disclaimer-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .9rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  margin-bottom: 18px;
+  justify-content: center;
+}
+.disclaimer-check input { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary); }
+.disclaimer-btn {
+  width: 100%;
+  padding: 13px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: .95rem;
+  background: var(--border);
+  color: var(--text-muted);
+  transition: all var(--transition);
+}
+.disclaimer-btn:not(:disabled) {
+  background: var(--primary);
+  color: #fff;
+  cursor: pointer;
+}
+.disclaimer-btn:not(:disabled):hover { opacity: .9; transform: translateY(-1px); }
+
+/* 帮助弹窗 */
+.help-modal { max-width: 460px; text-align: left; }
+.help-title { font-size: 1.2rem; margin-bottom: 16px; color: var(--text); padding-right: 30px; }
+.help-content p {
+  font-size: .88rem;
+  line-height: 1.7;
+  color: var(--text-light);
+  margin-bottom: 10px;
+}
+.help-content p strong { color: var(--primary); }
+.help-tip {
+  background: var(--card-bg-soft);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  margin-top: 14px !important;
+  font-size: .82rem !important;
+  color: var(--text-muted) !important;
+}
 
 /* 数量弹窗 */
 .amount-title { font-size: 1.1rem; margin-bottom: 6px; }
