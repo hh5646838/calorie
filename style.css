@@ -314,6 +314,100 @@ body.theme-cyber .follow-btn:hover { box-shadow: 0 0 16px var(--primary); }
 .suggest-tag.mid { background: #E3F2FD; color: #1565C0; }
 .suggest-tag.high { background: #E8F5E9; color: #2E7D32; }
 
+/* TDEE 计算器 */
+.tdee-section { margin-top: 12px; }
+.tdee-toggle {
+  width: 100%;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--card-bg-soft);
+  color: var(--text-secondary);
+  font-size: .82rem;
+  font-weight: 500;
+  text-align: left;
+  transition: background var(--transition);
+  margin-bottom: 8px;
+}
+.tdee-toggle:hover { background: var(--primary); color: #fff; }
+.tdee-form {
+  background: var(--card-bg-soft);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin-bottom: 10px;
+}
+.tdee-input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.tdee-input-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.tdee-input-item label {
+  font-size: .72rem;
+  color: var(--text-muted);
+}
+.tdee-input-item input,
+.tdee-input-item select {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: .82rem;
+  background: #fff;
+  color: var(--text);
+}
+.tdee-activity-item { flex: 1.5; }
+.tdee-calc-btn {
+  width: 100%;
+  padding: 7px 12px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-size: .82rem;
+  font-weight: 600;
+  margin-top: 16px;
+  transition: opacity var(--transition);
+}
+.tdee-calc-btn:hover { opacity: .9; }
+.tdee-result-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+}
+.tdee-result-label {
+  font-size: .82rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.tdee-result-input {
+  width: 90px;
+  padding: 5px 8px;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-sm);
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+}
+.tdee-result-unit {
+  font-size: .72rem;
+  color: var(--text-muted);
+}
+.tdee-disclaimer {
+  font-size: .7rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  text-align: center;
+  font-style: italic;
+}
+
 .btn-primary {
   background: var(--primary);
   color: #fff;

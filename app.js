@@ -53,6 +53,9 @@
     startTimestamp();
     updateFoodMask();
 
+    // TDEE 初始化：从 localStorage 读取
+    initTDEE();
+
     // 每次打开网站自动弹出免责声明
     showModal('disclaimerModal');
   }
@@ -146,6 +149,26 @@
       }
       updateFoodMask();
       updatePreview();
+    });
+
+    // TDEE 计算器：展开/折叠
+    $('tdeeToggle').addEventListener('click', () => {
+      const form = $('tdeeForm');
+      form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // TDEE 计算按钮
+    $('tdeeCalcBtn').addEventListener('click', calculateTDEE);
+
+    // TDEE 结果手动修改
+    $('tdeeResult').addEventListener('input', (e) => {
+      const val = parseInt(e.target.value, 10);
+      if (val && val > 0) {
+        localStorage.setItem('tdee_value', String(val));
+        updateTDEESuggestions(val);
+      } else {
+        updateTDEESuggestions(0);
+      }
     });
 
     // 主题切换（下拉菜单，只改卡片）
@@ -251,6 +274,78 @@
     } else {
       $('foodMask').classList.add('show');
     }
+  }
+
+  // ---------- TDEE 计算器 ----------
+  function initTDEE() {
+    // 从 localStorage 读取用户输入信息
+    const savedHeight = localStorage.getItem('tdee_height');
+    const savedWeight = localStorage.getItem('tdee_weight');
+    const savedAge = localStorage.getItem('tdee_age');
+    const savedGender = localStorage.getItem('tdee_gender');
+    const savedActivity = localStorage.getItem('tdee_activity');
+    const savedTDEE = localStorage.getItem('tdee_value');
+
+    if (savedHeight) $('tdeeHeight').value = savedHeight;
+    if (savedWeight) $('tdeeWeight').value = savedWeight;
+    if (savedAge) $('tdeeAge').value = savedAge;
+    if (savedGender) $('tdeeGender').value = savedGender;
+    if (savedActivity) $('tdeeActivity').value = savedActivity;
+    if (savedTDEE) {
+      $('tdeeResult').value = savedTDEE;
+      updateTDEESuggestions(parseInt(savedTDEE, 10));
+    }
+  }
+
+  function calculateTDEE() {
+    const height = parseFloat($('tdeeHeight').value);
+    const weight = parseFloat($('tdeeWeight').value);
+    const age = parseInt($('tdeeAge').value, 10);
+    const gender = $('tdeeGender').value;
+    const activity = parseFloat($('tdeeActivity').value);
+
+    if (!height || !weight || !age || height < 100 || weight < 20 || age < 10) {
+      alert('请输入有效的身高、体重和年龄');
+      return;
+    }
+
+    // Mifflin-St Jeor 公式计算 BMR
+    let bmr;
+    if (gender === 'male') {
+      bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+    } else {
+      bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+    }
+
+    // TDEE = BMR × 活动系数
+    const tdee = Math.round(bmr * activity);
+
+    // 保存到 localStorage
+    localStorage.setItem('tdee_height', String(height));
+    localStorage.setItem('tdee_weight', String(weight));
+    localStorage.setItem('tdee_age', String(age));
+    localStorage.setItem('tdee_gender', gender);
+    localStorage.setItem('tdee_activity', String(activity));
+    localStorage.setItem('tdee_value', String(tdee));
+
+    $('tdeeResult').value = tdee;
+    updateTDEESuggestions(tdee);
+  }
+
+  function updateTDEESuggestions(tdee) {
+    if (!tdee || tdee <= 0) {
+      $('suggestCut').textContent = '🔴 减脂 --';
+      $('suggestMaintain').textContent = '🟡 维持 --';
+      $('suggestBulk').textContent = '🟢 增肌 --';
+      return;
+    }
+    const cut = Math.round(tdee * 0.8);
+    const maintain = Math.round(tdee * 1.0);
+    const bulkLow = Math.round(tdee * 1.10);
+    const bulkHigh = Math.round(tdee * 1.15);
+    $('suggestCut').textContent = `🔴 减脂 ${cut}`;
+    $('suggestMaintain').textContent = `🟡 维持 ${maintain}`;
+    $('suggestBulk').textContent = `🟢 增肌 ${bulkLow}-${bulkHigh}`;
   }
 
   // ---------- 渲染食物网格 ----------
