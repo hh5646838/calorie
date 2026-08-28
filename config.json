@@ -3,8 +3,8 @@
   "avatar": "https://api.dicebear.com/7.x/adventurer/svg?seed=cyberfoodie&backgroundColor=ffd5dc",
   "homepage": "https://github.com",
   "author": "JoJo的AI工具箱",
-  "wechat": "",
-  "followTip": "📱 扫码关注，获取更多健康饮食干货",
+  "wechat": "JoJo的AI世界",
+  "followTip": "📱 扫码关注,获取最新工具信息",
   "qrcode": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=10&data=https://github.com",
   "helpTitle": "📖 使用帮助",
   "helpContent": [
