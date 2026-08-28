@@ -320,15 +320,16 @@ body.theme-cyber .follow-btn:hover { box-shadow: 0 0 16px var(--primary); }
   width: 100%;
   padding: 8px 14px;
   border-radius: var(--radius-sm);
-  background: var(--card-bg-soft);
-  color: var(--text-secondary);
+  background: var(--primary);
+  color: #fff;
   font-size: .82rem;
-  font-weight: 500;
-  text-align: left;
-  transition: background var(--transition);
+  font-weight: 600;
+  text-align: center;
+  transition: opacity var(--transition), transform var(--transition);
   margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(255,143,163,.35);
 }
-.tdee-toggle:hover { background: var(--primary); color: #fff; }
+.tdee-toggle:hover { opacity: .9; transform: translateY(-1px); }
 .tdee-form {
   background: var(--card-bg-soft);
   border-radius: var(--radius-sm);
