@@ -1400,8 +1400,21 @@ body.theme-cyber .download-btn {
 }
 .modal-title { font-size: 1.2rem; margin-bottom: 6px; }
 .modal-author { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
-.modal-wechat-row { font-size: .88rem; color: var(--text-light); margin-bottom: 14px; }
+.modal-wechat-row { font-size: .88rem; color: var(--text-light); margin-bottom: 10px; }
 .modal-wechat-row span { font-weight: 600; color: var(--primary); }
+.modal-copy-btn {
+  display: inline-block;
+  padding: 7px 16px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 20px;
+  font-size: .82rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+  transition: opacity var(--transition), transform var(--transition);
+}
+.modal-copy-btn:hover { opacity: .9; transform: translateY(-1px); }
+.modal-copy-btn.copied { background: #2E7D32; }
 .modal-qrcode {
   width: 160px; height: 160px;
   border-radius: var(--radius-md);

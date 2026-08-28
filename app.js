@@ -234,6 +234,9 @@
     $('followBtn').addEventListener('click', () => showModal('followModal'));
     $('followClose').addEventListener('click', () => hideModal('followModal'));
 
+    // 一键复制公众号名称
+    $('modalCopyBtn').addEventListener('click', copyWechatName);
+
     // 警告弹窗
     $('warnOk').addEventListener('click', () => hideModal('warnModal'));
 
@@ -348,6 +351,49 @@
     $('suggestCut').textContent = `🔴 减脂 ${cut}`;
     $('suggestMaintain').textContent = `🟡 维持 ${maintain}`;
     $('suggestBulk').textContent = `🟢 增肌 ${bulkLow}-${bulkHigh}`;
+  }
+
+  // ---------- 一键复制公众号名称 ----------
+  function copyWechatName() {
+    const name = $('modalWechat').textContent.trim();
+    if (!name) return;
+    const btn = $('modalCopyBtn');
+
+    // 使用 Clipboard API 复制
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(name)
+        .then(() => showCopiedFeedback(btn))
+        .catch(() => fallbackCopy(name, btn));
+    } else {
+      fallbackCopy(name, btn);
+    }
+  }
+
+  function fallbackCopy(text, btn) {
+    // 降级方案：创建临时 textarea 复制
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      showCopiedFeedback(btn);
+    } catch (err) {
+      alert('复制失败，请手动复制公众号名称：' + text);
+    }
+    document.body.removeChild(ta);
+  }
+
+  function showCopiedFeedback(btn) {
+    const original = btn.textContent;
+    btn.textContent = '✅ 已复制';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.classList.remove('copied');
+    }, 1500);
   }
 
   // ---------- 渲染食物网格 ----------
