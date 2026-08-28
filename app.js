@@ -74,7 +74,6 @@
     }
     if (state.config.author) {
       $('navAuthor').textContent = state.config.author;
-      $('modalAuthor').textContent = state.config.author;
       $('cardAuthor').textContent = state.config.author;
     }
     if (state.config.homepage) {
@@ -86,6 +85,9 @@
     if (state.config.qrcode) {
       $('modalQrcode').src = state.config.qrcode;
       $('catQrcode').src = state.config.qrcode;
+    }
+    if (state.config.followTip) {
+      $('modalTip').textContent = state.config.followTip;
     }
 
     // 渲染帮助文档（从 config 读取）
