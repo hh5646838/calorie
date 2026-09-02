@@ -1561,23 +1561,28 @@ body.theme-cyber .download-btn {
 .amount-actions button { flex: 1; }
 
 /* ---------- 响应式：手机端 ---------- */
+/* 平板及以下：单列布局，先操作（左侧控制区）再预览（右侧预览区置底） */
 @media (max-width: 900px) {
   .main-container {
     grid-template-columns: 1fr;
-    padding: 16px;
+    padding: 14px;
     gap: 16px;
   }
 
+  /* 关键：右侧预览 / 下载按钮移到页面底部 */
   .preview-panel {
     position: static;
-    order: -1;
+    top: auto;
+    order: 1;            /* 控制区默认 order:0，自然排在下方 */
   }
 
   .navbar { padding: 10px 16px; }
   .nav-author { font-size: .95rem; }
   .nav-link { display: none; }
+  .nav-actions { gap: 8px; }
+  .help-btn, .follow-btn { padding: 7px 12px; font-size: .82rem; }
 
-  .preview-card { max-width: 320px; }
+  .preview-card { max-width: 360px; }
 
   .food-grid {
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
@@ -1585,12 +1590,58 @@ body.theme-cyber .download-btn {
   }
 
   .step-card { padding: 16px; }
+
+  /* 顶部控制栏：风格下拉 + 下载按钮改为上下竖排，下载按钮占满整行 */
+  .preview-top-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .preview-top-bar .theme-select { width: 100%; }
+  .preview-top-bar .download-btn {
+    width: 100%;
+    max-width: none;
+    flex: 1 1 auto;
+    text-align: center;
+  }
 }
 
-@media (max-width: 480px) {
-  .preview-stats { gap: 10px; padding: 12px; }
-  .stat-value { font-size: 1.15rem; }
-  .info-chip { font-size: .72rem; padding: 4px 10px; }
-  .modal-box { padding: 20px 16px; }
+/* 手机：进一步压缩间距，TDEE 表单竖排，避免窄屏挤压 */
+@media (max-width: 600px) {
+  .main-container { padding: 12px; gap: 14px; }
+  .step-card { padding: 14px; border-radius: 16px; }
+
+  .target-stats { padding: 12px 4px; }
+  .target-stat-input { font-size: 1.6rem; max-width: 92px; }
+  .target-stat-value { font-size: 1.2rem; }
+
+  /* TDEE 表单竖排，防止窄屏下选项溢出 */
+  .tdee-input-row { flex-direction: column; gap: 10px; }
+  .tdee-input-item { width: 100%; }
+  .tdee-activity-item { flex: 1; }
+  .tdee-calc-btn { margin-top: 0; }
+  .tdee-result-row { flex-wrap: wrap; }
+
+  /* 已选食物单列，名字不被挤压 */
+  .selected-foods { grid-template-columns: 1fr; }
+  .chip-name { max-width: 110px; }
+
+  .food-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); max-height: 240px; }
+
+  /* 弹窗在小屏更紧凑、不顶边 */
+  .modal-box { padding: 20px 16px; max-width: 92vw; }
   .modal-qrcode { width: 130px; height: 130px; }
+
+  /* 防止 iOS 输入框聚焦时自动放大页面（小号输入框统一提到 16px） */
+  .date-input, .status-select,
+  .tdee-input-item input, .tdee-input-item select,
+  .theme-select, .chip-amount-input { font-size: 16px; }
+}
+
+/* 超小屏：预览卡片铺满，标题略缩 */
+@media (max-width: 480px) {
+  .nav-author { font-size: .85rem; max-width: 42vw; }
+  .preview-card { max-width: 100%; }
+  .card-title { font-size: 1.05rem; }
+  .card-stat-num { font-size: 1.15rem; }
 }
