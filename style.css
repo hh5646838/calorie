@@ -1514,8 +1514,9 @@ body.theme-cyber .download-btn {
 .disclaimer-btn:not(:disabled):hover { opacity: .9; transform: translateY(-1px); }
 
 /* 帮助弹窗 */
-.help-modal { max-width: 460px; text-align: left; }
-.help-title { font-size: 1.2rem; margin-bottom: 16px; color: var(--text); padding-right: 30px; }
+.help-modal { display: flex; flex-direction: column; max-height: 80vh; max-width: 460px; text-align: left; }
+.help-title { flex: 0 0 auto; font-size: 1.2rem; margin-bottom: 16px; color: var(--text); padding-right: 30px; }
+.help-content { overflow-y: auto; flex: 1 1 auto; min-height: 0; padding-right: 6px; }
 .help-content p {
   font-size: .88rem;
   line-height: 1.7;
@@ -1539,10 +1540,13 @@ body.theme-cyber .download-btn {
   display: flex;
   align-items: center;
   gap: 8px;
+  width: 100%;
   margin-bottom: 12px;
 }
 .amount-input-row input {
   flex: 1;
+  min-width: 0;             /* 关键：允许 input 在 flex 容器内收缩，避免撑出弹窗 */
+  max-width: 100%;
   padding: 10px 14px;
   border: 2px solid var(--border);
   border-radius: var(--radius-md);
@@ -1631,11 +1635,13 @@ body.theme-cyber .download-btn {
   /* 弹窗在小屏更紧凑、不顶边 */
   .modal-box { padding: 20px 16px; max-width: 92vw; }
   .modal-qrcode { width: 130px; height: 130px; }
+  .help-modal { max-height: 75vh; }  /* 帮助内容过长时内部滚动，不超出屏幕 */
 
   /* 防止 iOS 输入框聚焦时自动放大页面（小号输入框统一提到 16px） */
   .date-input, .status-select,
   .tdee-input-item input, .tdee-input-item select,
-  .theme-select, .chip-amount-input { font-size: 16px; }
+  .theme-select, .chip-amount-input,
+  .amount-input-row input { font-size: 16px; }
 }
 
 /* 超小屏：预览卡片铺满，标题略缩 */
